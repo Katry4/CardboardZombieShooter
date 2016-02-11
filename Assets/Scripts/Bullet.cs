@@ -17,6 +17,6 @@ public class Bullet : MonoBehaviour {
 
 	internal void Shoot()
 	{
-		_rigidbody.AddForce(Vector3.forward);
+		//_rigidbody.AddForce(Vector3.forward);
 	}
 }
