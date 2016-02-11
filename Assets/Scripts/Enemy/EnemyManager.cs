@@ -3,9 +3,11 @@ using System.Collections;
 
 public class EnemyManager : MonoBehaviour {
 
-    public int numObjects = 10;
-    public float waveWait, spawnWait, spawnRadius;
-    public GameObject prefab;
+    private int _numObjects = 10;
+    [SerializeField]
+    private float _waveWait, _spawnWait, _spawnRadius;
+    [SerializeField]
+    private GameObject _prefab;
 
     void Start()
     {
@@ -24,14 +26,14 @@ public class EnemyManager : MonoBehaviour {
 
     IEnumerator Spawner()
     {
-        yield return new WaitForSeconds(waveWait);
+        yield return new WaitForSeconds(_waveWait);
         Vector3 center = transform.position;
-        for (int i = 0; i < numObjects; i++)
+        for (int i = 0; i < _numObjects; i++)
         {
-            Vector3 pos = RandomCircle(center, spawnRadius);
+            Vector3 pos = RandomCircle(center, _spawnRadius);
             Quaternion rot = Quaternion.FromToRotation(Vector3.forward, center - pos);
-            Instantiate(prefab, pos, Quaternion.identity);
-            yield return new WaitForSeconds(spawnWait);
+            Instantiate(_prefab, pos, Quaternion.identity);
+            yield return new WaitForSeconds(_spawnWait);
         }
     }
 }

@@ -3,8 +3,10 @@ using System.Collections;
 
 public class EnemyMove : MonoBehaviour {
 
-    public float speed;
-    public Transform targetPos;
+    [SerializeField]
+    private float speed;
+    [SerializeField]
+    private Transform targetPos;
 
 	// Use this for initialization
 	void Start () {
@@ -13,6 +15,6 @@ public class EnemyMove : MonoBehaviour {
 	
 	// Update is called once per frame
 	void Update () {
-        transform.position = Vector3.MoveTowards(transform.position, targetPos.position, speed*Time.deltaTime);
+        transform.position = Vector3.MoveTowards(transform.position, targetPos.position, speed * Time.deltaTime);
 	}
 }
