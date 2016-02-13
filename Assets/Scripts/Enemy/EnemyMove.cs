@@ -7,6 +7,12 @@ public class EnemyMove : MonoBehaviour
 	[SerializeField] private float _speed;
 	[SerializeField] private Transform _targetPos;
 
+
+	public void SetTarget(Transform target)
+	{
+		_targetPos = target;
+	}
+
 	// Update is called once per frame
 	void Update()
 	{

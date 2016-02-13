@@ -6,7 +6,8 @@ public class EnemyManager : MonoBehaviour
 
 	private int _numObjects = 10;
 	[SerializeField] private float _waveWait, _spawnWait, _spawnRadius;
-	[SerializeField] private GameObject _prefab;
+	[SerializeField] private EnemyMove _prefab;
+	[SerializeField] private Transform _player;
 
 	void Start()
 	{
@@ -21,7 +22,8 @@ public class EnemyManager : MonoBehaviour
 		{
 			Vector3 pos = RandomCircle(center, _spawnRadius);
 			Quaternion rot = Quaternion.FromToRotation(Vector3.forward, center - pos);
-			Instantiate(_prefab, pos, Quaternion.identity);
+			var enemy = Instantiate(_prefab, pos, Quaternion.identity) as EnemyMove;
+			enemy.SetTarget(_player);
 			yield return new WaitForSeconds(_spawnWait);
 		}
 	}
