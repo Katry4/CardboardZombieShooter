@@ -1,20 +1,16 @@
 ﻿using UnityEngine;
 using System.Collections;
 
-public class EnemyMove : MonoBehaviour {
+public class EnemyMove : MonoBehaviour
+{
 
-    [SerializeField]
-    private float speed;
-    [SerializeField]
-    private Transform targetPos;
+	[SerializeField] private float _speed;
+	[SerializeField] private Transform _targetPos;
 
-	// Use this for initialization
-	void Start () {
-	
-	}
-	
 	// Update is called once per frame
-	void Update () {
-        transform.position = Vector3.MoveTowards(transform.position, targetPos.position, speed * Time.deltaTime);
+	void Update()
+	{
+		if (_targetPos != null)
+			transform.position = Vector3.MoveTowards(transform.position, _targetPos.position, _speed * Time.deltaTime);
 	}
 }
