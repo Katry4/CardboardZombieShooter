@@ -14,9 +14,10 @@ public class Gun : MonoBehaviour
 		{
 			CardboardHead head = Cardboard.Controller.Head;
 			RaycastHit hit;
-			bool isLookedAt = GetComponent<Collider>().Raycast(head.Gaze, out hit, Mathf.Infinity);
+			bool isLookedAt = Physics.Raycast(head.Gaze, out hit, Mathf.Infinity);
 			if (isLookedAt)
 			{
+
 				Shoot(hit.point);
 			}
 			else
@@ -27,13 +28,7 @@ public class Gun : MonoBehaviour
 		//SetGazedAt(isLookedAt);
 	}
 
-	public void Shoot()
-	{
-		Bullet bullet = Instantiate(_bullet, _spawnPlace.position, _spawnPlace.rotation) as Bullet;
-		bullet.Shoot(this);
-	}
-
-	private void Shoot(Vector3 targetPos)
+	private void Shoot(Vector3? targetPos = null)
 	{
 		//Quaternion rotation = Quaternion.
 		Bullet bullet = Instantiate(_bullet, _spawnPlace.position, _spawnPlace.rotation) as Bullet;
