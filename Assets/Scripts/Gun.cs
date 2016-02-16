@@ -1,5 +1,6 @@
 ﻿using UnityEngine;
 using System.Collections;
+using System;
 
 public class Gun : MonoBehaviour
 {
@@ -7,22 +8,30 @@ public class Gun : MonoBehaviour
 	[SerializeField] private Transform _spawnPlace;
 	[SerializeField] private Bullet _bullet;
 
-	public void Shoot()
-	{
-		Bullet bullet = Instantiate(_bullet);
-		bullet.transform.position = _spawnPlace.position;
-		bullet.Shoot();
-	}
-
 	void Update()
 	{
-		//CardboardHead head = Cardboard.Controller.Head;
-		//RaycastHit hit;
-		//bool isLookedAt = GetComponent<Collider>().Raycast(head.Gaze, out hit, Mathf.Infinity);
-		//SetGazedAt(isLookedAt);
 		if (Cardboard.SDK.Triggered)
 		{
-			Shoot();
+			CardboardHead head = Cardboard.Controller.Head;
+			RaycastHit hit;
+			bool isLookedAt = Physics.Raycast(head.Gaze, out hit, Mathf.Infinity);
+			if (isLookedAt)
+			{
+
+				Shoot(hit.point);
+			}
+			else
+			{
+				Shoot();
+			}
 		}
+		//SetGazedAt(isLookedAt);
+	}
+
+	private void Shoot(Vector3? targetPos = null)
+	{
+		//Quaternion rotation = Quaternion.
+		Bullet bullet = Instantiate(_bullet, _spawnPlace.position, _spawnPlace.rotation) as Bullet;
+		bullet.Shoot(this, targetPos);
 	}
 }
