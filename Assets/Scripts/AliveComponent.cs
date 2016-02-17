@@ -13,7 +13,9 @@ public class AliveComponent : MonoBehaviour {
 		{
 			Die();
 		}
-	}
+        Debug.Log(_health);
+
+    }
 
 	private void Die()
 	{
