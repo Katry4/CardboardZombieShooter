@@ -1,30 +1,48 @@
 ﻿using UnityEngine;
 using System.Collections;
 using System;
+using UnityEngine.SceneManagement;
 
 public class AliveComponent : MonoBehaviour
 {
 
 	[SerializeField] private int _maxHealth = 100;
-	public int _health;
+	private int _health;
+	private int targetHealth;
 
 	void Start()
 	{
-		_health = _maxHealth;
+		targetHealth = _health = _maxHealth;
 	}
 
 	public void RemHeath(int damage)
 	{
-		_health -= damage;
-		if (_health < 0)
+		targetHealth -= damage;
+		if (targetHealth < 0)
 		{
 			Die();
 		}
 	}
 
+	void Update()
+	{
+		if (targetHealth < _health)
+		{
+			_health--;
+		}
+	}
+
 	private void Die()
 	{
-		Destroy(gameObject);
+		if (gameObject.tag != "Player")
+		{
+			Destroy(gameObject);
+		}
+		else
+		{
+			Debug.Log("GAME OVER!");
+			SceneManager.LoadScene("GameScene");
+		}
 	}
 
 	public float HealthInPercent()
