@@ -47,8 +47,10 @@ MeshRenderer:
   m_ProbeAnchor: {fileID: 0}
   m_ScaleInLightmap: 1
   m_PreserveUVs: 0
+  m_IgnoreNormalsForChartDetection: 0
   m_ImportantGI: 0
-  m_AutoUVMaxDistance: .5
+  m_MinimumChartSize: 4
+  m_AutoUVMaxDistance: 0.5
   m_AutoUVMaxAngle: 89
   m_LightmapParameters: {fileID: 0}
   m_SortingLayerID: 0
@@ -64,11 +66,8 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 66c63f8350cb04a2683f8606cc8d36f7, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  _ReticleSegments: 20
-  _ReticleInnerAngle: 0
-  _ReticleOuterAngle: .5
-  _ReticleDistanceInMeters: 10
-  _ReticleGrowthSpeed: 8
+  reticleSegments: 20
+  reticleGrowthSpeed: 8
 --- !u!1001 &100100000
 Prefab:
   m_ObjectHideFlags: 1
