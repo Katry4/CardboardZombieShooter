@@ -34,6 +34,7 @@ public class AliveComponent : MonoBehaviour
 
 	private void Die()
 	{
+		Debug.Log(gameObject.tag + " "+ gameObject.name);
 		if (gameObject.tag != "Player")
 		{
 			Destroy(gameObject);

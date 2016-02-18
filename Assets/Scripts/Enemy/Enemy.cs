@@ -17,7 +17,6 @@ public class Enemy : MonoBehaviour
 
 	internal void Go()
 	{
-		Debug.Log("player "+player);
 		GetComponent<EnemyMove>().SetTarget(player.transform);
 	}
 
