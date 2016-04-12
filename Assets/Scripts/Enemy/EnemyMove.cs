@@ -4,8 +4,10 @@ using System.Collections;
 public class EnemyMove : MonoBehaviour
 {
 
-	[SerializeField] private float _speed;
-	[SerializeField] private Transform _targetPos;
+    [SerializeField]
+    private float _speed;
+    [SerializeField]
+    private Transform _targetPos;
 
 
 	public void SetTarget(Transform target)
@@ -24,7 +26,7 @@ public class EnemyMove : MonoBehaviour
     void Move()
     {
         float dist = Vector3.Distance(_targetPos.position, transform.position);
-        if (dist>0.7)
+        if (dist > 0.7)
         {
             transform.position = Vector3.MoveTowards(transform.position, _targetPos.position, _speed * Time.deltaTime);
         }
