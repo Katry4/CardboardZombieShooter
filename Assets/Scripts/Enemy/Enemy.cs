@@ -14,6 +14,8 @@ public class Enemy : MonoBehaviour
     [SerializeField]
     private GameController gc;
     private float timeSinceLastHit = 100;
+    [SerializeField]
+    private float healthPoint;
     #endregion
 
     void Awake()
@@ -37,8 +39,8 @@ public class Enemy : MonoBehaviour
         Debug.Log(other.name + " " + other.gameObject.tag);
         if (other.tag == "Bullet")
         {
-            gc.AddKillPoint(score);
-            Destroy(gameObject);
+            //Destroy(gameObject);
+            TakeDamage(3);
             Destroy(other.gameObject);
         }
 
@@ -52,10 +54,12 @@ public class Enemy : MonoBehaviour
 
     public void TakeDamage(float damage)
     {
-        /*healthPoint -= danage;
-        if (healthPoint < 0)
-        Destroy(gameObject);
-         */
+        healthPoint -= damage;
+        if (healthPoint <= 0)
+        {
+            Destroy(gameObject);
+            gc.AddKillPoint(score);
+        }
     }
 
     internal void HitPlayer()

@@ -21,6 +21,7 @@ public class EnemyMove : MonoBehaviour
     public void SetTarget(Transform target)
     {
         _targetPos = target;
+        Debug.Log(_targetPos.position);
     }
 
     // Update is called once per frame

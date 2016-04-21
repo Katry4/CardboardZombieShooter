@@ -32,7 +32,7 @@ public class AliveComponent : MonoBehaviour
     {
         targetHealth -= damage;
         health.text = "HP: " + targetHealth;
-        if (targetHealth < 0)
+        if (targetHealth <= 0)
         {
             Die();
         }

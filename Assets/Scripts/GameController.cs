@@ -20,6 +20,11 @@ public class GameController : MonoBehaviour
     private Text kills;
 
     [SerializeField]
+    private Text timeBestText;
+    [SerializeField]
+    private Text bestScoreText;
+
+    [SerializeField]
     private Canvas gameOverCanvas;
     [SerializeField]
     private GameObject head;
@@ -27,6 +32,8 @@ public class GameController : MonoBehaviour
     private int score = 0, healthPoint;
     private float timer;
     private string timeString;
+    int bestScore;
+    float timeBest;
     #endregion
 
     void Start()
@@ -56,12 +63,12 @@ public class GameController : MonoBehaviour
 
     public void GameOver()
     {
-        /*PlayerPrefs.SetInt("BestScoreKill", score);
-        PlayerPrefs.SetFloat("BestTime", timer);
-        PlayerPrefs.Save();*/
+        SaveScores();
+        bestScoreText.text = bestScore.ToString();
+        timeBestText.text = String.Format("{0:0}:{1:00}", Math.Floor(timeBest / 60), timeBest % 60);
         if (Cardboard.SDK.VRModeEnabled)
         {
-            gameOverCanvas.transform.position = head.transform.position + head.transform.forward * 300f;
+            gameOverCanvas.transform.position = head.transform.position + head.transform.forward * 2f;
             gameOverCanvas.transform.rotation = head.transform.rotation;
             gameOverCanvas.gameObject.SetActive(true);
         }
@@ -70,6 +77,18 @@ public class GameController : MonoBehaviour
     public void Replay()
     {
         SceneManager.LoadScene(0);
+    }
+
+    void SaveScores()
+    {
+        bestScore = PlayerPrefs.GetInt("BestScoreKill", 0);
+        if (score >= bestScore)
+            PlayerPrefs.SetInt("BestScoreKill", score);
+
+        timeBest = PlayerPrefs.GetFloat("BestTime", 0);
+        if (timer >= timeBest)
+            PlayerPrefs.SetFloat("BestTime", timer);
+        PlayerPrefs.Save();
     }
 
     #region Querries
