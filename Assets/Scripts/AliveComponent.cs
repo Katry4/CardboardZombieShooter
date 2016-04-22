@@ -31,7 +31,7 @@ public class AliveComponent : MonoBehaviour
     public void RemHeath(int damage)
     {
         targetHealth -= damage;
-        health.text = "HP: " + targetHealth;
+        health.text = "" + targetHealth;
         if (targetHealth <= 0)
         {
             Die();

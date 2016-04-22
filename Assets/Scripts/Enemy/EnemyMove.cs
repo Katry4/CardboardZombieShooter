@@ -12,10 +12,12 @@ public class EnemyMove : MonoBehaviour
     [SerializeField]
     private float _closestDistance = 0.7f;
     private Enemy enemy;
+	private Vector3 distance;
 
     void Start()
     {
         enemy = GetComponent<Enemy>();
+		distance = new Vector3 (_targetPos.position.x, _targetPos.position.y / 2f, _targetPos.position.z);
     }
 
     public void SetTarget(Transform target)
@@ -32,11 +34,11 @@ public class EnemyMove : MonoBehaviour
 
     void Move()
     {
-        float dist = Vector3.Distance(_targetPos.position, transform.position);
+		float dist = Vector3.Distance(distance, transform.position);
         if (dist > _closestDistance)
         {
             //anim move
-            transform.position = Vector3.MoveTowards(transform.position, _targetPos.position, _speed * Time.deltaTime);
+			transform.position = Vector3.MoveTowards(transform.position, distance, _speed * Time.deltaTime);
         }
         else
         {

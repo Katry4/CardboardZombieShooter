@@ -64,6 +64,8 @@ public class GameController : MonoBehaviour
     public void GameOver()
     {
         SaveScores();
+        bestScore = PlayerPrefs.GetInt("BestScoreKill", 0);
+        timeBest = PlayerPrefs.GetFloat("BestTime", 0);
         bestScoreText.text = bestScore.ToString();
         timeBestText.text = String.Format("{0:0}:{1:00}", Math.Floor(timeBest / 60), timeBest % 60);
         if (Cardboard.SDK.VRModeEnabled)

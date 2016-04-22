@@ -16,6 +16,10 @@ public class Enemy : MonoBehaviour
     private float timeSinceLastHit = 100;
     [SerializeField]
     private float healthPoint;
+    [SerializeField]
+    private AudioSource aS;
+    [SerializeField]
+    private AudioClip aC;
     #endregion
 
     void Awake()
@@ -27,6 +31,7 @@ public class Enemy : MonoBehaviour
     internal void Go()
     {
         GetComponent<EnemyMove>().SetTarget(player.transform);
+        aS.PlayOneShot(aC);
     }
 
     void Update()

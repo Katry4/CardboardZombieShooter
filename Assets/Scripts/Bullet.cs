@@ -4,17 +4,25 @@ using System;
 
 public class Bullet : MonoBehaviour
 {
+
+    #region
     [SerializeField]
     private float _speed = 5f;
     private Vector3 _targetPos = Vector3.zero;
     [SerializeField]
     private float _maxAliveTime = 5;
     private float _aliveTime = 0;
+    [SerializeField]
+    private AudioSource audioSource;
+    [SerializeField]
+    private AudioClip audioClip;
+    #endregion
 
     internal void Shoot(Gun gun, Vector3? targetPos = null)
     {
         _targetPos = targetPos == null ? Vector3.zero : (Vector3)targetPos;
         transform.rotation = gun.transform.localRotation;
+        audioSource.PlayOneShot(audioClip);
     }
 
     void Update()
