@@ -28,10 +28,14 @@ public class Enemy : MonoBehaviour
         gc = FindObjectOfType<GameController>();
     }
 
+    void Start()
+    {
+        aS.PlayOneShot(aC);
+    }
+
     internal void Go()
     {
         GetComponent<EnemyMove>().SetTarget(player.transform);
-        aS.PlayOneShot(aC);
     }
 
     void Update()
@@ -44,7 +48,6 @@ public class Enemy : MonoBehaviour
         Debug.Log(other.name + " " + other.gameObject.tag);
         if (other.tag == "Bullet")
         {
-            //Destroy(gameObject);
             TakeDamage(3);
             Destroy(other.gameObject);
         }

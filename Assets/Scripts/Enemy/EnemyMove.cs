@@ -5,6 +5,7 @@ using System;
 public class EnemyMove : MonoBehaviour
 {
 
+    #region Variables
     [SerializeField]
     private float _speed;
     [SerializeField]
@@ -13,6 +14,9 @@ public class EnemyMove : MonoBehaviour
     private float _closestDistance = 0.7f;
     private Enemy enemy;
 	private Vector3 distance;
+    [SerializeField]
+    private AudioSource aSteps;
+    #endregion
 
     void Start()
     {
@@ -23,7 +27,6 @@ public class EnemyMove : MonoBehaviour
     public void SetTarget(Transform target)
     {
         _targetPos = target;
-        Debug.Log(_targetPos.position);
     }
 
     // Update is called once per frame
@@ -39,6 +42,7 @@ public class EnemyMove : MonoBehaviour
         {
             //anim move
 			transform.position = Vector3.MoveTowards(transform.position, distance, _speed * Time.deltaTime);
+            aSteps.Play();
         }
         else
         {
