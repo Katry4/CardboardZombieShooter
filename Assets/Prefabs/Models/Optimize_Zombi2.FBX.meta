@@ -1,44 +1,45 @@
 fileFormatVersion: 2
 guid: d238b6172abe88c49924f9e342d73a94
-timeCreated: 1461329385
+timeCreated: 1461655056
 licenseType: Free
 ModelImporter:
   serializedVersion: 19
   fileIDToRecycleName:
     100000: Body
-    100002: BodyBone
-    100004: HeadBone
-    100006: LefHandBone2
-    100008: Left
+    100002: Body 1
+    100004: Head
+    100006: HPLeft
+    100008: HPRight
     100010: LeftHand1
-    100012: LeftHand2
-    100014: LeftHandBone1
-    100016: //RootNode
-    100018: Right
+    100012: LeftHand1 1
+    100014: LeftHand2
+    100016: LeftHand2 1
+    100018: //RootNode
     100020: RightHand1
-    100022: RightHand2
-    100024: RightHandBone1
-    100026: RightHandBone2
+    100022: RightHand1 1
+    100024: RightHand2
+    100026: RightHand2 1
     400000: Body
-    400002: BodyBone
-    400004: HeadBone
-    400006: LefHandBone2
-    400008: Left
+    400002: Body 1
+    400004: Head
+    400006: HPLeft
+    400008: HPRight
     400010: LeftHand1
-    400012: LeftHand2
-    400014: LeftHandBone1
-    400016: //RootNode
-    400018: Right
+    400012: LeftHand1 1
+    400014: LeftHand2
+    400016: LeftHand2 1
+    400018: //RootNode
     400020: RightHand1
-    400022: RightHand2
-    400024: RightHandBone1
-    400026: RightHandBone2
+    400022: RightHand1 1
+    400024: RightHand2
+    400026: RightHand2 1
     4300000: Body
     4300002: LeftHand1
     4300004: LeftHand2
     4300006: RightHand1
     4300008: RightHand2
     7400000: Crawl
+    7400002: Take 001
     9500000: //RootNode
     13700000: Body
     13700002: LeftHand1
@@ -70,7 +71,7 @@ ModelImporter:
       name: Crawl
       takeName: Take 001
       firstFrame: 0
-      lastFrame: 25
+      lastFrame: 20
       wrapMode: 0
       orientationOffsetY: 0
       level: 0
@@ -95,21 +96,77 @@ ModelImporter:
         weight: 1
       - path: Body
         weight: 1
-      - path: HeadBone
+      - path: Head
         weight: 1
-      - path: HeadBone/BodyBone
+      - path: Head/Body 1
         weight: 1
-      - path: HeadBone/Left
+      - path: Head/HPLeft
         weight: 1
-      - path: HeadBone/Left/LeftHandBone1
+      - path: Head/HPLeft/LeftHand1 1
         weight: 1
-      - path: HeadBone/Left/LeftHandBone1/LefHandBone2
+      - path: Head/HPLeft/LeftHand1 1/LeftHand2 1
         weight: 1
-      - path: HeadBone/Right
+      - path: Head/HPRight
         weight: 1
-      - path: HeadBone/Right/RightHandBone1
+      - path: Head/HPRight/RightHand1 1
         weight: 1
-      - path: HeadBone/Right/RightHandBone1/RightHandBone2
+      - path: Head/HPRight/RightHand1 1/RightHand2 1
+        weight: 1
+      - path: LeftHand1
+        weight: 1
+      - path: LeftHand2
+        weight: 1
+      - path: RightHand1
+        weight: 1
+      - path: RightHand2
+        weight: 1
+      maskType: 0
+      maskSource: {instanceID: 0}
+      additiveReferencePoseFrame: 0
+    - serializedVersion: 16
+      name: Take 001
+      takeName: Take 001
+      firstFrame: 21
+      lastFrame: 55
+      wrapMode: 0
+      orientationOffsetY: 0
+      level: 0
+      cycleOffset: 0
+      loop: 0
+      hasAdditiveReferencePose: 0
+      loopTime: 0
+      loopBlend: 0
+      loopBlendOrientation: 0
+      loopBlendPositionY: 0
+      loopBlendPositionXZ: 0
+      keepOriginalOrientation: 0
+      keepOriginalPositionY: 1
+      keepOriginalPositionXZ: 0
+      heightFromFeet: 0
+      mirror: 0
+      bodyMask: 01000000010000000100000001000000010000000100000001000000010000000100000001000000010000000100000001000000
+      curves: []
+      events: []
+      transformMask:
+      - path: 
+        weight: 1
+      - path: Body
+        weight: 1
+      - path: Head
+        weight: 1
+      - path: Head/Body 1
+        weight: 1
+      - path: Head/HPLeft
+        weight: 1
+      - path: Head/HPLeft/LeftHand1 1
+        weight: 1
+      - path: Head/HPLeft/LeftHand1 1/LeftHand2 1
+        weight: 1
+      - path: Head/HPRight
+        weight: 1
+      - path: Head/HPRight/RightHand1 1
+        weight: 1
+      - path: Head/HPRight/RightHand1 1/RightHand2 1
         weight: 1
       - path: LeftHand1
         weight: 1

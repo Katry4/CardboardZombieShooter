@@ -8,17 +8,14 @@ public class AliveComponent : MonoBehaviour
 {
 
     #region Variables
-    [SerializeField]
-    private int _maxHealth = 100;
-    [SerializeField]
-    private Canvas gameOverCanvas;
+    [SerializeField] private int _maxHealth = 100;
+    [SerializeField] private Canvas gameOverCanvas;
     private int _health;
     private int targetHealth;
 
-    [SerializeField]
-    private GameController gc;
-    [SerializeField]
-    private Text health;
+    [SerializeField] private GameController gc;
+    [SerializeField] private Text health;
+    [SerializeField] private EnemySoundManager enemySounds;
     #endregion
 
     void Start()
@@ -30,11 +27,14 @@ public class AliveComponent : MonoBehaviour
 
     public void RemHeath(int damage)
     {
-        targetHealth -= damage;
-        health.text = "" + targetHealth;
         if (targetHealth <= 0)
         {
             Die();
+        }
+        else
+        {
+            targetHealth -= damage;
+            health.text = "" + targetHealth;
         }
     }
 
@@ -48,7 +48,6 @@ public class AliveComponent : MonoBehaviour
 
     private void Die()
     {
-        Debug.Log(gameObject.tag + " " + gameObject.name);
         if (gameObject.tag != "Player")
         {
             Destroy(gameObject);

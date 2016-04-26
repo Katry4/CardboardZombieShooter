@@ -14,14 +14,14 @@ public class EnemyMove : MonoBehaviour
     private float _closestDistance = 0.7f;
     private Enemy enemy;
 	private Vector3 distance;
-    [SerializeField]
-    private AudioSource aSteps;
+    [SerializeField] private EnemySoundManager enemySounds;
     #endregion
 
     void Start()
     {
         enemy = GetComponent<Enemy>();
 		distance = new Vector3 (_targetPos.position.x, _targetPos.position.y / 2f, _targetPos.position.z);
+        enemySounds = GetComponent<EnemySoundManager>();
     }
 
     public void SetTarget(Transform target)
@@ -33,6 +33,7 @@ public class EnemyMove : MonoBehaviour
     void Update()
     {
         Move();
+        //enemySounds.isWalking = true;
     }
 
     void Move()
@@ -42,7 +43,6 @@ public class EnemyMove : MonoBehaviour
         {
             //anim move
 			transform.position = Vector3.MoveTowards(transform.position, distance, _speed * Time.deltaTime);
-            aSteps.Play();
         }
         else
         {
