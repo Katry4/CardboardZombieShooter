@@ -6,12 +6,9 @@ public class EnemyMove : MonoBehaviour
 {
 
     #region Variables
-    [SerializeField]
-    private float _speed;
-    [SerializeField]
-    private Transform _targetPos;
-    [SerializeField]
-    private float _closestDistance = 0.7f;
+    [SerializeField] public float _speed;
+    [SerializeField] private Transform _targetPos;
+    [SerializeField] private float _closestDistance = 0.7f;
     private Enemy enemy;
 	private Vector3 distance;
     [SerializeField] private EnemySoundManager enemySounds;
@@ -33,7 +30,6 @@ public class EnemyMove : MonoBehaviour
     void Update()
     {
         Move();
-        //enemySounds.isWalking = true;
     }
 
     void Move()
@@ -46,8 +42,9 @@ public class EnemyMove : MonoBehaviour
         }
         else
         {
-            enemy.HitPlayer();
-            //anim hit
+            enemy.IsHit();
+            //GetComponent<Animator>().SetTrigger("Hit");
+            enemySounds.audioSources[1].Stop();
         }
     }
 

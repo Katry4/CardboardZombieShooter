@@ -12,17 +12,12 @@ public class Bullet : MonoBehaviour
     [SerializeField]
     private float _maxAliveTime = 5;
     private float _aliveTime = 0;
-    [SerializeField]
-    private AudioSource audioSource;
-    [SerializeField]
-    private AudioClip audioClip;
     #endregion
 
     internal void Shoot(Gun gun, Vector3? targetPos = null)
     {
         _targetPos = targetPos == null ? Vector3.zero : (Vector3)targetPos;
         transform.rotation = gun.transform.localRotation;
-        audioSource.PlayOneShot(audioClip);
     }
 
     void Update()

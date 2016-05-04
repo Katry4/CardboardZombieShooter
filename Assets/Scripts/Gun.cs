@@ -7,8 +7,10 @@ public class Gun : MonoBehaviour
 
 	[SerializeField] private Transform _spawnPlace;
 	[SerializeField] private Bullet _bullet;
+    [SerializeField] private AudioClip audioClip;
+    [SerializeField] private AudioSource audioSource;
 
-	void Update()
+    void Update()
 	{
 		if (Cardboard.SDK.Triggered)
 		{
@@ -25,13 +27,12 @@ public class Gun : MonoBehaviour
 				Shoot();
 			}
 		}
-		//SetGazedAt(isLookedAt);
 	}
 
 	private void Shoot(Vector3? targetPos = null)
 	{
-		//Quaternion rotation = Quaternion.
 		Bullet bullet = Instantiate(_bullet, _spawnPlace.position, _spawnPlace.rotation) as Bullet;
 		bullet.Shoot(this, targetPos);
-	}
+        audioSource.PlayOneShot(audioClip);
+    }
 }

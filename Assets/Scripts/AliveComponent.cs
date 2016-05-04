@@ -8,14 +8,19 @@ public class AliveComponent : MonoBehaviour
 {
 
     #region Variables
-    [SerializeField] private int _maxHealth = 100;
-    [SerializeField] private Canvas gameOverCanvas;
+    public static bool isDead;
+
+    [SerializeField]
+    private int _maxHealth = 100;
+    [SerializeField]
+    private Canvas gameOverCanvas;
     private int _health;
     private int targetHealth;
 
-    [SerializeField] private GameController gc;
-    [SerializeField] private Text health;
-    [SerializeField] private EnemySoundManager enemySounds;
+    [SerializeField]
+    private GameController gc;
+    [SerializeField]
+    private Text health;
     #endregion
 
     void Start()
@@ -23,13 +28,16 @@ public class AliveComponent : MonoBehaviour
         targetHealth = _health = _maxHealth;
         Time.timeScale = 1f;
         gc = FindObjectOfType<GameController>();
+        gc.ResetVolume();
     }
 
     public void RemHeath(int damage)
     {
-        if (targetHealth <= 0)
+        if (_health <= 0)
         {
             Die();
+            targetHealth = 0;
+            health.text = "" + targetHealth;
         }
         else
         {
@@ -44,6 +52,16 @@ public class AliveComponent : MonoBehaviour
         {
             _health--;
         }
+        if (_health <= 50 && _health > 25)
+        {
+            gc.SetOSTVolume(-10f);
+            gc.SetSFXSoundVolume(-10f);
+        }
+        else if (_health <= 25)
+        {
+            gc.SetOSTVolume(-20f);
+            gc.SetSFXSoundVolume(-20f);
+        }
     }
 
     private void Die()
@@ -56,6 +74,7 @@ public class AliveComponent : MonoBehaviour
         {
             Debug.Log("GAME OVER!");
             //SceneManager.LoadScene("GameScene");
+            isDead = true;
             gc.GameOver();
             Time.timeScale = 0.000000001f;
         }
