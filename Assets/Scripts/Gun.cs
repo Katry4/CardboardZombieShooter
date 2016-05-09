@@ -9,6 +9,8 @@ public class Gun : MonoBehaviour
 	[SerializeField] private Bullet _bullet;
     [SerializeField] private AudioClip audioClip;
     [SerializeField] private AudioSource audioSource;
+    [SerializeField] private Animator gunAnimator;
+    public static bool isPlaying;
 
     void Update()
 	{
@@ -19,7 +21,6 @@ public class Gun : MonoBehaviour
 			bool isLookedAt = Physics.Raycast(head.Gaze, out hit, Mathf.Infinity);
 			if (isLookedAt)
 			{
-
 				Shoot(hit.point);
 			}
 			else
@@ -31,8 +32,12 @@ public class Gun : MonoBehaviour
 
 	private void Shoot(Vector3? targetPos = null)
 	{
-		Bullet bullet = Instantiate(_bullet, _spawnPlace.position, _spawnPlace.rotation) as Bullet;
-		bullet.Shoot(this, targetPos);
-        audioSource.PlayOneShot(audioClip);
+        if (isPlaying)
+        {
+            Bullet bullet = Instantiate(_bullet, _spawnPlace.position, _spawnPlace.rotation) as Bullet;
+            bullet.Shoot(this, targetPos);
+            audioSource.PlayOneShot(audioClip);
+            gunAnimator.SetBool("isShoot", true);
+        }
     }
 }

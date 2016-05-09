@@ -10,15 +10,15 @@ public class EnemyMove : MonoBehaviour
     [SerializeField] private Transform _targetPos;
     [SerializeField] private float _closestDistance = 0.7f;
     private Enemy enemy;
-	private Vector3 distance;
+    Vector3 distance;
     [SerializeField] private EnemySoundManager enemySounds;
     #endregion
 
     void Start()
     {
         enemy = GetComponent<Enemy>();
-		distance = new Vector3 (_targetPos.position.x, _targetPos.position.y / 2f, _targetPos.position.z);
         enemySounds = GetComponent<EnemySoundManager>();
+        distance = new Vector3(_targetPos.position.x, _targetPos.position.y - 1f, _targetPos.position.z);
     }
 
     public void SetTarget(Transform target)
@@ -29,23 +29,22 @@ public class EnemyMove : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
-        Move();
+        if (enemy.isMove)
+            Move();
     }
 
     void Move()
     {
-		float dist = Vector3.Distance(distance, transform.position);
+        float dist = Vector3.Distance(_targetPos.position, transform.position);
         if (dist > _closestDistance)
         {
             //anim move
-			transform.position = Vector3.MoveTowards(transform.position, distance, _speed * Time.deltaTime);
+            transform.position = Vector3.MoveTowards(transform.position, distance, _speed * Time.deltaTime);
         }
         else
         {
             enemy.IsHit();
-            //GetComponent<Animator>().SetTrigger("Hit");
             enemySounds.audioSources[1].Stop();
         }
     }
-
 }

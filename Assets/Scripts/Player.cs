@@ -16,7 +16,7 @@ public class Player : MonoBehaviour {
 	
 	}
 
-	internal void Hit(int damage, Transform enemyTransform)
+	internal void Hit(int damage, GameObject enemyTransform)
 	{
 		_alive.RemHeath(damage);
         manager.Hit(enemyTransform);

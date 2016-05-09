@@ -28,40 +28,31 @@ public class AliveComponent : MonoBehaviour
         targetHealth = _health = _maxHealth;
         Time.timeScale = 1f;
         gc = FindObjectOfType<GameController>();
+        isDead = false;
         gc.ResetVolume();
     }
 
     public void RemHeath(int damage)
     {
-        if (_health <= 0)
+        if (_health <= 3)
         {
             Die();
-            targetHealth = 0;
-            health.text = "" + targetHealth;
+            _health = 0;
+            health.text = "" + _health;
         }
         else
         {
-            targetHealth -= damage;
-            health.text = "" + targetHealth;
+            _health -= damage;
+            health.text = "" + _health;
         }
     }
 
     void Update()
     {
-        if (targetHealth < _health)
-        {
-            _health--;
-        }
         if (_health <= 50 && _health > 25)
-        {
-            gc.SetOSTVolume(-10f);
-            gc.SetSFXSoundVolume(-10f);
-        }
-        else if (_health <= 25)
-        {
-            gc.SetOSTVolume(-20f);
-            gc.SetSFXSoundVolume(-20f);
-        }
+            gc.SetVolume1(1f);
+        if (_health <= 25)
+            gc.SetVolume2(1f);
     }
 
     private void Die()
@@ -72,10 +63,9 @@ public class AliveComponent : MonoBehaviour
         }
         else
         {
-            Debug.Log("GAME OVER!");
-            //SceneManager.LoadScene("GameScene");
             isDead = true;
             gc.GameOver();
+            Gun.isPlaying = false;
             Time.timeScale = 0.000000001f;
         }
     }

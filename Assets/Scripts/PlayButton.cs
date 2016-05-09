@@ -3,8 +3,10 @@ using System.Collections;
 
 public class PlayButton : MonoBehaviour {
 
-	// Use this for initialization
-	void Start () {
+    [SerializeField] private AudioClip _clip;
+
+    // Use this for initialization
+    void Start () {
         Time.timeScale = 0.00000000001f;
 	}
 	
@@ -15,7 +17,9 @@ public class PlayButton : MonoBehaviour {
 
     public void Play()
     {
+        AudioSource.PlayClipAtPoint(_clip, new Vector3(0f, 0f, 0f), 1f);
         Time.timeScale = 1f;
-        gameObject.SetActive(false);
+        GetComponentInParent<Canvas>().gameObject.SetActive(false);
+        Gun.isPlaying = true;
     }
 }
