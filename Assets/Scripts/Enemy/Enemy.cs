@@ -16,6 +16,8 @@ public class Enemy : MonoBehaviour
     [SerializeField] private EnemySoundManager enemySounds;
     [SerializeField] private EnemyMove enemyMove;
     private float angle;
+    public float amplitude = 0.1f;
+    public float duration = 0.5f;
     public bool isAlive = true;
     public bool isMove;
     #endregion
@@ -79,6 +81,7 @@ public class Enemy : MonoBehaviour
     {
         if (timeSinceLastHit > _recharge)
         {
+            CameraShake.Instance.Shake(amplitude, duration);
             player.Hit(_damage, gameObject);
             enemySounds.isHitting();
             timeSinceLastHit = 0;
@@ -93,5 +96,10 @@ public class Enemy : MonoBehaviour
     internal void PlayMove()
     {
         isMove = true;
+    }
+
+    internal void isMoving()
+    {
+        enemySounds.audioSources[1].Play();
     }
 }

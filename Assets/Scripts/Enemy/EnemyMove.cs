@@ -16,6 +16,7 @@ public class EnemyMove : MonoBehaviour
 
     void Start()
     {
+        _speed = 1f;
         enemy = GetComponent<Enemy>();
         enemySounds = GetComponent<EnemySoundManager>();
         distance = new Vector3(_targetPos.position.x, _targetPos.position.y - 1f, _targetPos.position.z);

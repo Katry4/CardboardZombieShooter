@@ -39,10 +39,10 @@ public class CardboardReticle : MonoBehaviour, ICardboardPointer {
   // Minimum inner angle of the reticle (in degrees).
   private const float kReticleMinInnerAngle = 0.0f;
   // Minimum outer angle of the reticle (in degrees).
-  private const float kReticleMinOuterAngle = 0.5f;
+  private const float kReticleMinOuterAngle = 0.2f;
   // Angle at which to expand the reticle when intersecting with an object
   // (in degrees).
-  private const float kReticleGrowthAngle = 1.5f;
+  private const float kReticleGrowthAngle = 1f;
 
   // Minimum distance of the reticle (in meters).
   private const float kReticleDistanceMin = 0.75f;

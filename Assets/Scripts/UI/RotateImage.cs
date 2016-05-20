@@ -9,10 +9,12 @@ public class RotateImage : MonoBehaviour
     public GameObject player, enemy;
     public Enemy enemyScript;
     private float _angle;
+    [SerializeField] private Sprite[] sprites;
 
     // Use this for initialization
     void Start()
     {
+        GetComponent<Image>().sprite = sprites[UnityEngine.Random.Range(0, sprites.Length)];
         StartCoroutine(FadeImage());
         enemyScript = enemy.GetComponent<Enemy>();
     }

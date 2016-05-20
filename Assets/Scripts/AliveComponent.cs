@@ -34,7 +34,7 @@ public class AliveComponent : MonoBehaviour
 
     public void RemHeath(int damage)
     {
-        if (_health <= 3)
+        if (_health <= 20)
         {
             Die();
             _health = 0;

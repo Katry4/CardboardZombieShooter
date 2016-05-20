@@ -9,40 +9,28 @@ using System.Diagnostics;
 public class GameController : MonoBehaviour
 {
     #region Variables
-    [SerializeField]
-    private Player _player;
+    [SerializeField] private Player _player;
     private AliveComponent _playerHealth;
-    [SerializeField]
-    private Image _healthImage;
+    [SerializeField] private Image _healthImage;
 
-    [SerializeField]
-    private Text time;
-    [SerializeField]
-    private Text kills;
+    [SerializeField] private Text time;
+    [SerializeField] private Text kills;
 
-    [SerializeField]
-    private Text timeBestText;
-    [SerializeField]
-    private Text bestScoreText;
+    [SerializeField] private Text timeBestText;
+    [SerializeField] private Text bestScoreText;
 
-    [SerializeField]
-    private Canvas gameOverCanvas;
-    [SerializeField]
-    private GameObject head;
-    [SerializeField]
-    private AudioMixer audioMixer;
-    [SerializeField]
-    private AudioMixerSnapshot[] snapshots;
+    [SerializeField] private Canvas gameOverCanvas;
+    [SerializeField] private GameObject head;
+    [SerializeField] private AudioMixer audioMixer;
+    [SerializeField] private AudioMixerSnapshot[] snapshots;
 
-    [SerializeField]
-    private GameObject killsObject;
-    [SerializeField]
-    private GameObject timeObject;
+    [SerializeField] private GameObject killsObject;
+    [SerializeField] private GameObject timeObject;
 
-    [SerializeField]
-    private Text gameOverTime;
-    [SerializeField]
-    private Text gameOverKills;
+    [SerializeField] private Text gameOverTime;
+    [SerializeField] private Text gameOverKills;
+    [SerializeField] private EnemyMove zombie1;
+    [SerializeField] private EnemyMove zombie2;
 
     private int score = 0, healthPoint;
     private float timer;
@@ -63,6 +51,8 @@ public class GameController : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
+        UnityEngine.Debug.Log(zombie1._speed + " zombie 1");
+        UnityEngine.Debug.Log(zombie2._speed + " zombie 2");
         /*Color color = _healthImage.color;
         color.a = 1 - _playerHealth.HealthInPercent();
         _healthImage.color = color;*/
@@ -70,6 +60,17 @@ public class GameController : MonoBehaviour
         timer += Time.deltaTime;
         timeString = String.Format("{0:0}:{1:00}", Math.Floor(timer / 60), timer % 60);
         time.text = "" + timeString;
+
+        if (timer > 30 && timer <60)
+        {
+            zombie1._speed = 1.6f;
+            zombie2._speed = 1.2f;
+        }
+        if (timer > 60)
+        {
+            zombie1._speed = 1.8f;
+            zombie2._speed = 1.4f;
+        }
     }
 
     public void AddKillPoint(int newScore)
