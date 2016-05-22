@@ -8,146 +8,184 @@ using System.Diagnostics;
 
 public class GameController : MonoBehaviour
 {
-    #region Variables
-    [SerializeField] private Player _player;
-    private AliveComponent _playerHealth;
-    [SerializeField] private Image _healthImage;
+	#region Variables
 
-    [SerializeField] private Text time;
-    [SerializeField] private Text kills;
+	[SerializeField] private Player _player;
+	private AliveComponent _playerHealth;
+	[SerializeField] private Image _healthImage;
 
-    [SerializeField] private Text timeBestText;
-    [SerializeField] private Text bestScoreText;
+	[SerializeField] private Text time;
+	[SerializeField] private Text kills;
 
-    [SerializeField] private Canvas gameOverCanvas;
-    [SerializeField] private GameObject head;
-    [SerializeField] private AudioMixer audioMixer;
-    [SerializeField] private AudioMixerSnapshot[] snapshots;
+	[SerializeField] private Text timeBestText;
+	[SerializeField] private Text bestScoreText;
 
-    [SerializeField] private GameObject killsObject;
-    [SerializeField] private GameObject timeObject;
+	[SerializeField] private Canvas gameOverCanvas;
+	[SerializeField] private GameObject head;
+	[SerializeField] private AudioMixer audioMixer;
+	[SerializeField] private AudioMixerSnapshot[] snapshots;
 
-    [SerializeField] private Text gameOverTime;
-    [SerializeField] private Text gameOverKills;
-    [SerializeField] private EnemyMove zombie1;
-    [SerializeField] private EnemyMove zombie2;
+	[SerializeField] private GameObject killsObject;
+	[SerializeField] private GameObject timeObject;
 
-    private int score = 0, healthPoint;
-    private float timer;
-    private string timeString;
-    int bestScore;
-    float timeBest;
-    #endregion
+	[SerializeField] private Text gameOverTime;
+	[SerializeField] private Text gameOverKills;
+	[SerializeField] private EnemyMove zombie1;
+	[SerializeField] private EnemyMove zombie2;
+	[SerializeField] private GameObject floorCanvas;
+	[SerializeField] private GameObject downArrow;
 
-    void Start()
-    {
-        Time.timeScale = 0.00001f;
-        _playerHealth = _player.GetComponent<AliveComponent>();
-        AddKillPoint(score);
-        timer = 0f;
+	private int score = 0, healthPoint;
+	private float timer;
+	private string timeString;
+	int bestScore;
+	float timeBest;
+
+	public int ammoCount = 10;
+	public bool isShootActive = true;
+	[SerializeField] private Text ammoText;
+
+	#endregion
+
+	void Start ()
+	{
+		zombie1._speed = 1f;
+		zombie2._speed = 0.8f;
+		Time.timeScale = 0.00001f;
+		_playerHealth = _player.GetComponent<AliveComponent> ();
+		AddKillPoint (score);
+		timer = 0f;
         
-    }
+	}
 
-    // Update is called once per frame
-    void Update()
-    {
-        UnityEngine.Debug.Log(zombie1._speed + " zombie 1");
-        UnityEngine.Debug.Log(zombie2._speed + " zombie 2");
-        /*Color color = _healthImage.color;
+	// Update is called once per frame
+	void Update ()
+	{
+		UnityEngine.Debug.Log (zombie1._speed + " zombie 1");
+		UnityEngine.Debug.Log (zombie2._speed + " zombie 2");
+		/*Color color = _healthImage.color;
         color.a = 1 - _playerHealth.HealthInPercent();
         _healthImage.color = color;*/
 
-        timer += Time.deltaTime;
-        timeString = String.Format("{0:0}:{1:00}", Math.Floor(timer / 60), timer % 60);
-        time.text = "" + timeString;
+		timer += Time.deltaTime;
+		timeString = String.Format ("{0:0}:{1:00}", Math.Floor (timer / 60), timer % 60);
+		time.text = "" + timeString;
 
-        if (timer > 30 && timer <60)
-        {
-            zombie1._speed = 1.6f;
-            zombie2._speed = 1.2f;
-        }
-        if (timer > 60)
-        {
-            zombie1._speed = 1.8f;
-            zombie2._speed = 1.4f;
-        }
-    }
+		if (timer > 30 && timer < 60) {
+			zombie1._speed = 1.6f;
+			zombie2._speed = 1.2f;
+		}
+		if (timer > 60) {
+			zombie1._speed = 1.8f;
+			zombie2._speed = 1.4f;
+		}
 
-    public void AddKillPoint(int newScore)
-    {
-        kills.text = "" + (score += newScore);
-    }
+		//Reload
+		if (ammoCount == 0) {
+			isShootActive = false;
+			floorCanvas.SetActive (true);
+			downArrow.SetActive (true);
+		}
+	}
 
-    public void GameOver()
-    {
-        ResetVolume();
-        SaveScores();
-        bestScore = PlayerPrefs.GetInt("BestScoreKill", 0);
-        timeBest = PlayerPrefs.GetFloat("BestTime", 0);
-        bestScoreText.text = "Best: " + bestScore.ToString();
-        timeBestText.text = "Best: " + String.Format("{0:0}:{1:00}", Math.Floor(timeBest / 60), timeBest % 60);
+	public void Realod ()
+	{
+		StartCoroutine (ReloadAmmo ());
+		UnityEngine.Debug.Log ("Realod");
+	}
 
-        gameOverKills.text = "Your: " + score;
-        gameOverTime.text = "Your: " + timeString;
-        if (Cardboard.SDK.VRModeEnabled)
-        {
-            killsObject.SetActive(false);
-            timeObject.SetActive(false);
-            gameOverCanvas.transform.position = head.transform.position + head.transform.forward * 0.55f;
-            gameOverCanvas.transform.rotation = head.transform.rotation;
-            gameOverCanvas.gameObject.SetActive(true);
-        }
-    }
+	IEnumerator ReloadAmmo()
+	{
+		yield return new WaitForSeconds (1f);
+		ammoCount = 10;
+		ammoText.text = ammoCount.ToString ();
+		isShootActive = true;
+		floorCanvas.SetActive (false);
+		downArrow.SetActive (false);
+	}
 
-    public void Replay()
-    {
-        SceneManager.LoadScene(0);
-    }
+	public void DegreaseAmmo ()
+	{
+		if (isShootActive) {
+			ammoCount--;
+			ammoText.text = ammoCount.ToString ();
+		}
+	}
 
-    void SaveScores()
-    {
-        bestScore = PlayerPrefs.GetInt("BestScoreKill", 0);
-        if (score >= bestScore)
-            PlayerPrefs.SetInt("BestScoreKill", score);
+	public void AddKillPoint (int newScore)
+	{
+		kills.text = "" + (score += newScore);
+	}
 
-        timeBest = PlayerPrefs.GetFloat("BestTime", 0);
-        if (timer >= timeBest)
-            PlayerPrefs.SetFloat("BestTime", timer);
-        PlayerPrefs.Save();
-    }
+	public void GameOver ()
+	{
+		ResetVolume ();
+		SaveScores ();
+		bestScore = PlayerPrefs.GetInt ("BestScoreKill", 0);
+		timeBest = PlayerPrefs.GetFloat ("BestTime", 0);
+		bestScoreText.text = "Best: " + bestScore.ToString ();
+		timeBestText.text = "Best: " + String.Format ("{0:0}:{1:00}", Math.Floor (timeBest / 60), timeBest % 60);
 
-    #region Querries
-    public Player Player
-    {
-        get { return _player; }
-    }
-    #endregion
+		gameOverKills.text = "Your: " + score;
+		gameOverTime.text = "Your: " + timeString;
+		if (Cardboard.SDK.VRModeEnabled) {
+			killsObject.SetActive (false);
+			timeObject.SetActive (false);
+			gameOverCanvas.transform.position = head.transform.position + head.transform.forward * 0.55f;
+			gameOverCanvas.transform.rotation = head.transform.rotation;
+			gameOverCanvas.gameObject.SetActive (true);
+		}
+	}
 
-    public IEnumerator SetVolume(float volume, float setVolume)
-    {
-        while (volume >= setVolume)
-        {
-            volume -= Time.deltaTime * 10f;
-            audioMixer.SetFloat("sfxVol", volume);
-            audioMixer.SetFloat("ostVol", volume);
-            yield return null;
-        }
-    }
+	public void Replay ()
+	{
+		SceneManager.LoadScene (0);
+	}
 
-    public void SetVolume1(float time)
-    {
-        snapshots[0].TransitionTo(time);
-        EnemySoundManager.volume = 0.15f;
-    }
+	void SaveScores ()
+	{
+		bestScore = PlayerPrefs.GetInt ("BestScoreKill", 0);
+		if (score >= bestScore)
+			PlayerPrefs.SetInt ("BestScoreKill", score);
 
-    public void SetVolume2(float time)
-    {
-        snapshots[1].TransitionTo(time);
-        EnemySoundManager.volume = 0.07f;
-    }
+		timeBest = PlayerPrefs.GetFloat ("BestTime", 0);
+		if (timer >= timeBest)
+			PlayerPrefs.SetFloat ("BestTime", timer);
+		PlayerPrefs.Save ();
+	}
 
-    public void ResetVolume()
-    {
-        snapshots[2].TransitionTo(0.001f);
-    }
+	#region Querries
+
+	public Player Player {
+		get { return _player; }
+	}
+
+	#endregion
+
+	public IEnumerator SetVolume (float volume, float setVolume)
+	{
+		while (volume >= setVolume) {
+			volume -= Time.deltaTime * 10f;
+			audioMixer.SetFloat ("sfxVol", volume);
+			audioMixer.SetFloat ("ostVol", volume);
+			yield return null;
+		}
+	}
+
+	public void SetVolume1 (float time)
+	{
+		snapshots [0].TransitionTo (time);
+		EnemySoundManager.volume = 0.15f;
+	}
+
+	public void SetVolume2 (float time)
+	{
+		snapshots [1].TransitionTo (time);
+		EnemySoundManager.volume = 0.07f;
+	}
+
+	public void ResetVolume ()
+	{
+		snapshots [2].TransitionTo (0.001f);
+	}
 }

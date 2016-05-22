@@ -11,6 +11,7 @@ public class Gun : MonoBehaviour
     [SerializeField] private AudioSource audioSource;
     [SerializeField] private Animator gunAnimator;
     public static bool isPlaying;
+	[SerializeField] private GameController gameController;
 
     void Update()
 	{
@@ -32,12 +33,13 @@ public class Gun : MonoBehaviour
 
 	private void Shoot(Vector3? targetPos = null)
 	{
-        if (isPlaying)
+		if (isPlaying && gameController.isShootActive)
         {
             Bullet bullet = Instantiate(_bullet, _spawnPlace.position, _spawnPlace.rotation) as Bullet;
             bullet.Shoot(this, targetPos);
             audioSource.PlayOneShot(audioClip);
             gunAnimator.SetBool("isShoot", true);
+			gameController.DegreaseAmmo ();
         }
     }
 }
