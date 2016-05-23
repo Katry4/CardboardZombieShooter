@@ -61,8 +61,6 @@ public class GameController : MonoBehaviour
 	// Update is called once per frame
 	void Update ()
 	{
-		UnityEngine.Debug.Log (zombie1._speed + " zombie 1");
-		UnityEngine.Debug.Log (zombie2._speed + " zombie 2");
 		/*Color color = _healthImage.color;
         color.a = 1 - _playerHealth.HealthInPercent();
         _healthImage.color = color;*/
