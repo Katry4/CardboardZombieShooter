@@ -19,12 +19,19 @@ public class EnemyManager : MonoBehaviour
     private float _waveWaitDown, _spawnWaitDown, _spawnRadiusDown;
     [SerializeField]
     private Enemy _prefabDown;
+
+	private int _numObjectsBoss = 5;
+	[SerializeField]
+	private float _waveWaitBoss, _spawnWaitBoss, _spawnRadiusBoss;
+	[SerializeField]
+	private Enemy _prefabBoss;
     #endregion
 
     void Start()
     {
-        StartCoroutine(SpawnerUpper());
-        StartCoroutine(SpawnerDown());
+		StartCoroutine (SpawnerUpper ());
+		StartCoroutine (SpawnerDown ());
+		StartCoroutine (SpawnerBoss ());
     }
 
     IEnumerator SpawnerUpper()
@@ -60,6 +67,23 @@ public class EnemyManager : MonoBehaviour
             }
         }
     }
+
+	IEnumerator SpawnerBoss()
+	{
+		yield return new WaitForSeconds(_waveWaitBoss);
+		Vector3 center = transform.position;
+		while (true)
+		{
+			for (int i = 0; i < _numObjectsBoss; i++)
+			{
+				Vector3 pos = RandomCircle(center, _spawnRadiusBoss);
+				Quaternion rot = Quaternion.FromToRotation(Vector3.forward, center - pos);
+				var enemy = Instantiate(_prefabBoss, pos, rot) as Enemy;
+				enemy.Go();
+				yield return new WaitForSeconds(_spawnWaitBoss);
+			}
+		}
+	}
 
     Vector3 RandomCircle(Vector3 center, float radius)
     {

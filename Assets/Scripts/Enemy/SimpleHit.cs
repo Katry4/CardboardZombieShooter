@@ -16,7 +16,7 @@ public class SimpleHit : MonoBehaviour {
 		
 	}
 
-    public void OnTriggerEnter(Collider other)
+    void OnTriggerEnter(Collider other)
     {
         if (other.tag == "Bullet" && enemy.isAlive)
         {

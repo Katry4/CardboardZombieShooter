@@ -15,6 +15,7 @@ public class Enemy : MonoBehaviour
     [SerializeField] public float healthPoint;
     [SerializeField] private EnemySoundManager enemySounds;
     [SerializeField] private EnemyMove enemyMove;
+	[SerializeField] private GameObject zombieHand;
     private float angle;
     public float amplitude = 0.1f;
     public float duration = 0.5f;
@@ -72,6 +73,15 @@ public class Enemy : MonoBehaviour
         Destroy(gameObject);
     }
 
+	public void ShootInPlayer ()
+	{
+		if (timeSinceLastHit > _recharge)
+		{
+			GetComponent<Animator>().SetTrigger("Hit");
+			timeSinceLastHit = 0;
+		}
+	}
+
     internal void IsHit()
     {
         GetComponent<Animator>().SetTrigger("Hit");
@@ -81,12 +91,18 @@ public class Enemy : MonoBehaviour
     {
         if (timeSinceLastHit > _recharge)
         {
+			player.Hit(_damage, gameObject);
             CameraShake.Instance.Shake(amplitude, duration);
-            player.Hit(_damage, gameObject);
             enemySounds.isHitting();
             timeSinceLastHit = 0;
         }
     }
+
+	internal void HitPlayerThird()
+	{
+		Instantiate (zombieHand, gameObject.transform.position, Quaternion.identity);
+	}
+
 
     internal void StopMove()
     {

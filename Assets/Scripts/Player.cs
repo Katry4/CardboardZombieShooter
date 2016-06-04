@@ -6,6 +6,7 @@ public class Player : MonoBehaviour {
 
 	[SerializeField] private AliveComponent _alive;
     [SerializeField] private ManagerAngle manager;
+
 	// Use this for initialization
 	void Start () {
 
