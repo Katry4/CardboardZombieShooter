@@ -1,28 +1,16 @@
 fileFormatVersion: 2
-guid: e749b21d58cfc487cae2db693173e770
-timeCreated: 1464533967
+guid: e8ee8ad3a85b5ce46b92740c2186f1e5
+timeCreated: 1466346740
 licenseType: Free
 ModelImporter:
   serializedVersion: 19
   fileIDToRecycleName:
-    100000: Ammo
-    100002: Gun1
-    100004: Gun2
-    100006: //RootNode
-    400000: Ammo
-    400002: Gun1
-    400004: Gun2
-    400006: //RootNode
-    2300000: Ammo
-    2300002: Gun1
-    2300004: Gun2
-    3300000: Ammo
-    3300002: Gun1
-    3300004: Gun2
-    4300000: Gun1
-    4300002: Gun2
-    4300004: Ammo
-    7400000: Reload
+    100000: //RootNode
+    400000: //RootNode
+    2300000: //RootNode
+    3300000: //RootNode
+    4300000: default
+    7400000: Take 001
     9500000: //RootNode
   materials:
     importMaterials: 1
@@ -44,43 +32,7 @@ ModelImporter:
     animationScaleError: 0.5
     animationWrapMode: 0
     extraExposedTransformPaths: []
-    clipAnimations:
-    - serializedVersion: 16
-      name: Reload
-      takeName: Take 001
-      firstFrame: 0
-      lastFrame: 25
-      wrapMode: 0
-      orientationOffsetY: 0
-      level: 0
-      cycleOffset: 0
-      loop: 0
-      hasAdditiveReferencePose: 0
-      loopTime: 0
-      loopBlend: 0
-      loopBlendOrientation: 0
-      loopBlendPositionY: 0
-      loopBlendPositionXZ: 0
-      keepOriginalOrientation: 0
-      keepOriginalPositionY: 1
-      keepOriginalPositionXZ: 0
-      heightFromFeet: 0
-      mirror: 0
-      bodyMask: 01000000010000000100000001000000010000000100000001000000010000000100000001000000010000000100000001000000
-      curves: []
-      events: []
-      transformMask:
-      - path: 
-        weight: 1
-      - path: Ammo
-        weight: 1
-      - path: Gun1
-        weight: 1
-      - path: Gun2
-        weight: 1
-      maskType: 0
-      maskSource: {instanceID: 0}
-      additiveReferencePoseFrame: 0
+    clipAnimations: []
     isReadable: 1
   meshes:
     lODScreenPercentages: []

@@ -39,7 +39,7 @@ public class Gun : MonoBehaviour
             bullet.Shoot(this, targetPos);
             audioSource.PlayOneShot(audioClip);
             gunAnimator.SetBool("isShoot", true);
-			gameController.DegreaseAmmo ();
+            gameController.DegreaseAmmo ();
         }
     }
 }
